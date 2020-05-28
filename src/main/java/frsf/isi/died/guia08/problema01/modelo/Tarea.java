@@ -12,9 +12,21 @@ public class Tarea {
 	private LocalDateTime fechaFin;
 	private Boolean facturada;
 	
+	public Tarea(int id, String d, int duracion) {
+		this.id = id;
+		descripcion = d;
+		duracionEstimada = duracion;
+	}
+	
+	public Tarea() {}
+	
 	public void asignarEmpleado(Empleado e) {
 		// si la tarea ya tiene un empleado asignado
 		// y tiene fecha de finalizado debe lanzar una excepcion
+		if (empleadoAsignado != null && fechaFin != null)
+			throw new TareaException("Ocurrio un erro al asignar un empleado");
+		empleadoAsignado = e;
+		
 	}
 
 	public Integer getId() {
@@ -69,5 +81,8 @@ public class Tarea {
 		return empleadoAsignado;
 	}
 	
+	public String asCSV() {
+		return this.id + ";\"" + this.descripcion + ";\"" + this.duracionEstimada + ";\"" +  this.empleadoAsignado.getCuil() + ";\"" + this.empleadoAsignado.getNombre();
+	}
 	
 }
